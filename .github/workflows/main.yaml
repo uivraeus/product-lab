@@ -20,7 +20,27 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+      - name: Get version tag
+        id: autoTagDryRun
+        uses: anothrNick/github-tag-action@1.55.0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          WITH_V: true
+          DRY_RUN: true
+      - name: Print tag information
+        run: |
+          echo "The next tag version will be: ${{ steps.autoTagDryRun.outputs.new_tag }}"
+          echo "The current tag is: ${{ steps.autoTagDryRun.outputs.tag }}"
       - name: Create archive
         run: |
-          tar -czvf product.tar.gz product.txt
+          tar -czvf product.${{ steps.autoTagDryRun.outputs.new_tag }}.tar.gz product.txt
+          echo "Output:"
+          ls -l *.gz
+      - name: Apply tag
+        if: github.ref == 'refs/heads/master'
+        id: autoTag
+        uses: anothrNick/github-tag-action@1.55.0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          WITH_V: true
 
