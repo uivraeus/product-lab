@@ -1,0 +1,4 @@
+This is the product
+It consists of lines in a text file
+There must be exactly four lines
+It's that easy

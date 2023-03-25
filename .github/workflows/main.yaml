@@ -1,0 +1,26 @@
+name: Manage product
+on: 
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  Test product:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Run tests
+        run: |
+          ./test_product.sh
+  Package product:
+    needs: Test product
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v3
+    - Create archive
+      run: |
+        tar -czvf product.tar.gz product.txt
+
