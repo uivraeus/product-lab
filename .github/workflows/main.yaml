@@ -6,7 +6,7 @@ on:
     branches: [ main ]
 
 jobs:
-  Test product:
+  Test:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -14,13 +14,13 @@ jobs:
       - name: Run tests
         run: |
           ./test_product.sh
-  Package product:
-    needs: Test product
+  Package:
+    needs: Test
     runs-on: ubuntu-latest
     steps:
-    - name: Check out repository code
-      uses: actions/checkout@v3
-    - Create archive
-      run: |
-        tar -czvf product.tar.gz product.txt
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Create archive
+        run: |
+          tar -czvf product.tar.gz product.txt
 
