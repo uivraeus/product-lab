@@ -37,7 +37,7 @@ jobs:
           echo "Output:"
           ls -l *.gz
       - name: Apply tag
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         id: autoTag
         uses: anothrNick/github-tag-action@1.55.0
         env:
